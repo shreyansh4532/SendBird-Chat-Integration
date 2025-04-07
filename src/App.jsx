@@ -14,83 +14,17 @@ const App = () => {
   const [currentChannel, setCurrentChannel] = useState("");
   const [showSettings, setShowSettings] = useState(false);
   const [showCreateChannel, setShowCreateChannel] = useState(false);
-  const [createChannelType, setCreateChannelType] = useState("group"); // 'group' or 'direct'
-
-  // Handle creating new channels
-  const handleCreateChannel = () => {
-    setShowCreateChannel(true);
-    setCreateChannelType("group");
-  };
-
-  // Handle creating new direct messages
-  const handleCreateDirectMessage = () => {
-    setShowCreateChannel(true);
-    setCreateChannelType("direct");
-  };
-
-  // Render header controls for creating chats
-  const renderChannelControls = () => (
-    <div
-      style={{
-        padding: "12px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        backgroundColor: "#f3f3f3",
-        borderBottom: "1px solid #e0e0e0",
-      }}
-    >
-      <h2 style={{ margin: 0 }}>SendBird Chat</h2>
-      <div>
-        <button
-          onClick={handleCreateDirectMessage}
-          style={{
-            marginRight: "8px",
-            padding: "8px 12px",
-            background: "#742DDD",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
-          New Direct Message
-        </button>
-        <button
-          onClick={handleCreateChannel}
-          style={{
-            padding: "8px 12px",
-            background: "#742DDD",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
-          New Group Chat
-        </button>
-      </div>
-    </div>
-  );
 
   return (
-    <div className="App" style={{ height: "100vh", width: "100%" }}>
+    <div className="App h-screen w-full">
       <SendbirdProvider
         appId={APP_ID}
         userId={USER_ID}
         accessToken={ACCESS_TOKEN}
       >
-        {renderChannelControls()}
-
-        <div style={{ display: "flex", height: "calc(100% - 60px)" }}>
+        <div className="flex h-[calc(100%-60px)]">
           {/* Channel List */}
-          <div
-            style={{
-              width: "320px",
-              borderRight: "1px solid #e0e0e0",
-              height: "100%",
-            }}
-          >
+          <div className="w-[320px] border-r border-gray-300 h-full">
             <GroupChannelList
               onChannelSelect={(channel) => {
                 if (channel && channel.url) {
@@ -105,7 +39,7 @@ const App = () => {
             />
           </div>
 
-          <div style={{ flex: 1, height: "100%" }}>
+          <div className="flex-1 h-full">
             {showCreateChannel && (
               <CreateChannel
                 onChannelCreated={(channel) => {
@@ -138,15 +72,7 @@ const App = () => {
             )}
 
             {!showCreateChannel && !currentChannel && (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
-                  backgroundColor: "#f5f5f5",
-                }}
-              >
+              <div className="flex justify-center items-center h-full bg-gray-100">
                 <p>Select a chat or create a new one</p>
               </div>
             )}
